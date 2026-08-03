@@ -1,0 +1,8 @@
+item,value
+matched_TCGA_tumor_samples,748
+discovery_CpGs,550
+significant_trans_pairs,145364
+selected_trans_genes,110
+selected_m2eQTL_probes,12
+cis_replacement_genes,4
+expression_only_signature_size,114

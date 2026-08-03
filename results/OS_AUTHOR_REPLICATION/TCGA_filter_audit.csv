@@ -1,0 +1,6 @@
+"step","removed","remaining","published_reference"
+"Primary tumour expression-clinical overlap",NA,1059,NA
+"Remove missing OS outcome",20,1039,15
+"Remove unresolved genuinely missing stage",0,1039,3
+"Remove Stage X",0,1039,14
+"Remove missing age at diagnosis",0,1039,0

@@ -1,0 +1,4 @@
+cohort,model,c_index
+TCGA_train,M2EFM_Molecular,0.750753012048193
+TCGA_train,M2EFM_ExpClin,0.83805811481219
+TCGA_train,Clinical,0.778813784549965

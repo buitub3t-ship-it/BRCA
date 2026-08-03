@@ -1,0 +1,393 @@
+Started: 2026-07-31 21:01:07 
+R: R version 4.5.0 (2025-04-11 ucrt) 
+Project: D:/M2EFM_BRCA_Replication/M2EFM-master 
+Data: D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/csv_output 
+Results: D:/M2EFM_BRCA_Replication/M2EFM-master/results/OS_FULL_AUTHOR_DATA 
+
+M2EFM version: 0.39 
+
+Resolved files:
+                                                                              TCGA_CLIN 
+    "D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/csv_output/TCGA_BRCA_CLIN.csv" 
+                                                                               TCGA_EXP 
+     "D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/csv_output/TCGA_BRCA_EXP.csv" 
+                                                                              TCGA_METH 
+    "D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/csv_output/TCGA_BRCA_METH.csv" 
+                                                                               KAO_CLIN 
+     "D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/csv_output/KAO_BRCA_CLIN.csv" 
+                                                                                KAO_EXP 
+      "D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/csv_output/KAO_BRCA_EXP.csv" 
+                                                                              TERU_CLIN 
+"D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/csv_output/TERUNUMA_BRCA_CLIN.csv" 
+                                                                               TERU_EXP 
+ "D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/csv_output/TERUNUMA_BRCA_EXP.csv" 
+                                                                              PROBELIST 
+         "D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/csv_output/PROBELIST.csv" 
+Terunuma metadata: D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/csv_output/TERUNUMA_GPL6244_FEATURE_METADATA.csv 
+
+Raw dimensions:
+TCGA expression : 10000 x 1059 
+TCGA methylation: 7313 x 878 
+Kao expression  : 10000 x 327 
+Terunuma input  : 33297 x 61 
+
+Mapping GPL6244 transcript clusters to gene symbols...
+G3;'select()' returned 1:many mapping between keys and columns
+gTerunuma gene-level dimensions: 19997 x 61 
+Mapping source: hugene10sttranscriptcluster.db 
+
+Running joint ComBat across TCGA, Terunuma and Kao...
+G3;Found3batches
+gG3;Adjusting for0covariate(s) or covariate level(s)
+gG3;Standardizing Data across genes
+gG3;Fitting L/S model and finding priors
+gG3;Finding parametric adjustments
+gG3;Adjusting the Data
+
+g           used  (Mb) gc trigger   (Mb)  max used   (Mb)
+Ncells 13926313 743.8   25931725 1385.0  17241120  920.8
+Vcells 63283505 482.9  172368482 1315.1 179362285 1368.5
+
+Cohort audit:
+                                   cohort samples published_reference                                                                 interpretation
+1             TCGA expression+clinical OS    1039                1028 Released clinical file no longer retains original Stage X/missing-stage labels
+2 TCGA expression+methylation+clinical OS     743                 743                                         Matches published overlap sample count
+3         Terunuma expression+clinical OS      61                  61                                                            Matches publication
+4              Kao expression+clinical OS     327                 327                                                            Matches publication
+
+Shared expression genes: 9330 
+
+Error: Published Table S4 features are missing from the prepared matrices. See published_feature_missing_audit.csv.
+[1] 108
+
+     Kao expression     TCGA expression Terunuma expression 
+                 36                  36                  36 
+                dataset  feature
+1       TCGA expression    ACAP1
+2       TCGA expression     AGR2
+3       TCGA expression     ASPN
+4       TCGA expression   BCL11A
+5       TCGA expression     CCL5
+6       TCGA expression     CCR7
+7       TCGA expression     CD27
+8       TCGA expression     CD48
+9       TCGA expression     CD52
+10      TCGA expression    CD79B
+11      TCGA expression   COL9A3
+12      TCGA expression   CORO1A
+13      TCGA expression      EN1
+14      TCGA expression    GATA3
+15      TCGA expression    GFRA1
+16      TCGA expression     GZMB
+17      TCGA expression HLA-DQA1
+18      TCGA expression     IRF4
+19      TCGA expression KIAA1324
+20      TCGA expression   LRRC15
+21      TCGA expression    MARCO
+22      TCGA expression     NKG7
+23      TCGA expression  PLA2G2D
+24      TCGA expression    PRKCB
+25      TCGA expression     PRLR
+26      TCGA expression    ROPN1
+27      TCGA expression   SLAMF7
+28      TCGA expression  SLC44A4
+29      TCGA expression    SPDEF
+30      TCGA expression    THSD4
+31      TCGA expression TNFRSF17
+32      TCGA expression      UBD
+33      TCGA expression    VGLL1
+34      TCGA expression     XBP1
+35      TCGA expression     DLG5
+36      TCGA expression   LILRB2
+37  Terunuma expression    ACAP1
+38  Terunuma expression     AGR2
+39  Terunuma expression     ASPN
+40  Terunuma expression   BCL11A
+41  Terunuma expression     CCL5
+42  Terunuma expression     CCR7
+43  Terunuma expression     CD27
+44  Terunuma expression     CD48
+45  Terunuma expression     CD52
+46  Terunuma expression    CD79B
+47  Terunuma expression   COL9A3
+48  Terunuma expression   CORO1A
+49  Terunuma expression      EN1
+50  Terunuma expression    GATA3
+51  Terunuma expression    GFRA1
+52  Terunuma expression     GZMB
+53  Terunuma expression HLA-DQA1
+54  Terunuma expression     IRF4
+55  Terunuma expression KIAA1324
+56  Terunuma expression   LRRC15
+57  Terunuma expression    MARCO
+58  Terunuma expression     NKG7
+59  Terunuma expression  PLA2G2D
+60  Terunuma expression    PRKCB
+61  Terunuma expression     PRLR
+62  Terunuma expression    ROPN1
+63  Terunuma expression   SLAMF7
+64  Terunuma expression  SLC44A4
+65  Terunuma expression    SPDEF
+66  Terunuma expression    THSD4
+67  Terunuma expression TNFRSF17
+68  Terunuma expression      UBD
+69  Terunuma expression    VGLL1
+70  Terunuma expression     XBP1
+71  Terunuma expression     DLG5
+72  Terunuma expression   LILRB2
+73       Kao expression    ACAP1
+74       Kao expression     AGR2
+75       Kao expression     ASPN
+76       Kao expression   BCL11A
+77       Kao expression     CCL5
+78       Kao expression     CCR7
+79       Kao expression     CD27
+80       Kao expression     CD48
+81       Kao expression     CD52
+82       Kao expression    CD79B
+83       Kao expression   COL9A3
+84       Kao expression   CORO1A
+85       Kao expression      EN1
+86       Kao expression    GATA3
+87       Kao expression    GFRA1
+88       Kao expression     GZMB
+89       Kao expression HLA-DQA1
+90       Kao expression     IRF4
+91       Kao expression KIAA1324
+92       Kao expression   LRRC15
+93       Kao expression    MARCO
+94       Kao expression     NKG7
+95       Kao expression  PLA2G2D
+96       Kao expression    PRKCB
+97       Kao expression     PRLR
+98       Kao expression    ROPN1
+99       Kao expression   SLAMF7
+100      Kao expression  SLC44A4
+101      Kao expression    SPDEF
+102      Kao expression    THSD4
+103      Kao expression TNFRSF17
+104      Kao expression      UBD
+105      Kao expression    VGLL1
+106      Kao expression     XBP1
+107      Kao expression     DLG5
+108      Kao expression   LILRB2
+
+> # =====================================================================
+> # REPAIR / AUDIT EXPRESSION INPUTS BEFORE RUNNING THE OS EXPERIMENT
+> #
+>  .... [TRUNCATED] 
+
+> gc()
+           used  (Mb) gc trigger   (Mb)  max used   (Mb)
+Ncells 13898816 742.3   25931725 1385.0  17241120  920.8
+Vcells 26018308 198.6  137894786 1052.1 179362285 1368.5
+
+> options(stringsAsFactors = FALSE)
+
+> options(width = 160)
+
+> PROJECT_DIR <- "D:/M2EFM_BRCA_Replication/M2EFM-master"
+
+> EXTDATA_DIR <- file.path(PROJECT_DIR, "inst", "extdata")
+
+> CSV_DIR <- file.path(EXTDATA_DIR, "csv_output")
+
+> OUT_DIR <- file.path(CSV_DIR, "full_repaired")
+
+> dir.create(OUT_DIR, recursive = TRUE, showWarnings = FALSE)
+
+> required <- c("data.table", "matrixStats", "AnnotationDbi",
++               "hugene10sttranscriptcluster.db")
+
+> missing_packages <- required[
++   !vapply(required, requireNamespace, logical(1), quietly = TRUE)
++ ]
+
+> if (length(missing_packages) > 0L) {
++   stop(
++     "Missing packages: ", paste(missing_packages, collapse = ", "),
++     "\nInstall with:\n",
++    .... [TRUNCATED] 
+
+> PUBLISHED_TRANS_GENES <- c(
++   "ACAP1", "ADAMDEC1", "AFF3", "AGR2", "ANXA9", "ASPN",
++   "BCL11A", "C4A", "CA12", "CACNA2D2", "CCL19", "CCL5",
++    .... [TRUNCATED] 
+
+> PUBLISHED_CIS_GENES <- c(
++   "BDH1", "CCL14", "DLG5", "GSDMD", "KIF5C", "LILRB2", "NCF4"
++ )
+
+> PUBLISHED_EXP_GENES <- unique(c(
++   PUBLISHED_TRANS_GENES,
++   PUBLISHED_CIS_GENES
++ ))
+
+> stopifnot(length(PUBLISHED_EXP_GENES) == 115L)
+
+> read_matrix_full <- function(path) {
++   message("Reading full file: ", path)
++ 
++   x <- data.table::fread(
++     path,
++     data.table = FALSE,
++ .... [TRUNCATED] 
+
+> inspect_candidate <- function(path, expected_signature) {
++   first_col <- data.table::fread(
++     path,
++     select = 1L,
++     data.table = FALS .... [TRUNCATED] 
+
+> find_expression_candidates <- function(stem) {
++   all_files <- list.files(
++     EXTDATA_DIR,
++     recursive = TRUE,
++     full.names = TRUE,
++    .... [TRUNCATED] 
+
+> choose_full_candidate <- function(stem) {
++   candidates <- find_expression_candidates(stem)
++ 
++   if (length(candidates) == 0L) {
++     stop("No c ..." ... [TRUNCATED] 
+
+> write_matrix_csv <- function(z, path, first_col_name = "gene_id") {
++   output <- data.frame(
++     feature_id = rownames(z),
++     z,
++     check.n .... [TRUNCATED] 
+
+> # ---------------------------------------------------------------------
+> # 1. RECOVER FULL TCGA AND KAO MATRICES
+> # ------------------------------ .... [TRUNCATED] 
+G2;H2;Warningh in data.table::fread(path, select = 1L, data.table = FALSE, na.strings = c("NA",  :
+  Detected 1059 column names but the data has 1060 columns (i.e. invalid file). Added an extra default column name for the first column which is guessed to be row names or an index. Use setnames() afterwards if this guess is not correct, or fix the file write command that created the file to create a valid file.g
+                                                                              path  rows signature_present signature_missing          stem
+1 D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/csv_output/TCGA_BRCA_EXP.csv 10000                82                33 TCGA_BRCA_EXP
+2            D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/TCGA_BRCA_EXP.txt 10000                82                33 TCGA_BRCA_EXP
+Error in choose_full_candidate("TCGA_BRCA_EXP") : 
+No complete source was found for TCGA_BRCA_EXP.
+The current 10,000-row CSV cannot reproduce Table S4.
+Recover/re-export the full author matrix with at least 10,990 genes and all 115 Table S4 genes. Do not use nrows=10000, head(10000), preview mode, or row slicing.
+See candidate audit in: D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/csv_output/full_repaired
+G3;[2026-07-31 22:12:16] R runtime: R version 4.5.0 (2025-04-11 ucrt)
+gG3;[2026-07-31 22:12:16] Output directory: C:/Users/DELL/OneDrive/Tài liệu/m2efm_os_lowram_output
+gG3;[2026-07-31 22:12:16] Discovery mode: paper_signature
+gG3;[2026-07-31 22:12:16] Scaling scope: author_global
+gError in load_input_objects(cfg) : 
+  Expression data were not found. Edit CFG$combined_rds or CFG$expression_file.
+Called from: load_input_objects(cfg)
+
+Resolved M2EFM input files:
+  Project:     D:/M2EFM_BRCA_Replication
+  Expression:  D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/csv_output/TCGA_BRCA_EXP.csv
+  Methylation: D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/csv_output/TCGA_BRCA_METH.csv
+  Clinical:    D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/csv_output/TCGA_BRCA_CLIN.csv
+  Output:      D:/M2EFM_BRCA_Replication/m2efm_os_lowram_output
+
+G3;[2026-07-31 22:22:48] R runtime: R version 4.5.0 (2025-04-11 ucrt)
+gG3;[2026-07-31 22:22:48] Output directory: D:/M2EFM_BRCA_Replication/m2efm_os_lowram_output
+gG3;[2026-07-31 22:22:48] Discovery mode: paper_signature
+gG3;[2026-07-31 22:22:48] Scaling scope: author_global
+gG2;H2;Warningh: non-unique values when setting 'row.names': ‘TCGA-A7-A0CE’, ‘TCGA-A7-A0CH’, ‘TCGA-A7-A0D9’, ‘TCGA-A7-A0DB’, ‘TCGA-A7-A0DC’, ‘TCGA-A7-A13E’, ‘TCGA-A7-A13F’, ‘TCGA-A7-A13G’, ‘TCGA-AC-A23H’, ‘TCGA-AC-A2FB’, ‘TCGA-AC-A2FF’, ‘TCGA-AC-A2FG’, ‘TCGA-AC-A2FM’, ‘TCGA-AC-A6IX’, ‘TCGA-BH-A0AU’, ‘TCGA-BH-A0AY’, ‘TCGA-BH-A0AZ’, ‘TCGA-BH-A0B2’, ‘TCGA-BH-A0B3’, ‘TCGA-BH-A0B5’, ‘TCGA-BH-A0B7’, ‘TCGA-BH-A0B8’, ‘TCGA-BH-A0BA’, ‘TCGA-BH-A0BC’, ‘TCGA-BH-A0BF’, ‘TCGA-BH-A0BJ’, ‘TCGA-BH-A0BL’, ‘TCGA-BH-A0BM’, ‘TCGA-BH-A0BO’, ‘TCGA-BH-A0BQ’, ‘TCGA-BH-A0BS’, ‘TCGA-BH-A0BT’, ‘TCGA-BH-A0BV’, ‘TCGA-BH-A0BW’, ‘TCGA-BH-A0BZ’, ‘TCGA-BH-A0C0’, ‘TCGA-BH-A0C3’, ‘TCGA-BH-A0DD’, ‘TCGA-BH-A0DE’, ‘TCGA-BH-A0DG’, ‘TCGA-BH-A0DH’, ‘TCGA-BH-A0DI’, ‘TCGA-BH-A0DK’, ‘TCGA-BH-A0DL’, ‘TCGA-BH-A0DO’, ‘TCGA-BH-A0DP’, ‘TCGA-BH-A0DQ’, ‘TCGA-BH-A0DT’, ‘TCGA-BH-A0DV’, ‘TCGA-BH-A0DZ’, ‘TCGA-BH-A0E0’, ‘TCGA-BH-A0E1’, ‘TCGA-BH-A0H5’, ‘TCGA-BH-A0H7’, ‘TCGA-BH-A0H9’, ‘TCGA-BH-A0HA’, ‘TCGA-BH-A0HK’, ‘TCGA-BH-A18F’, ‘TCGA-BH-A18J’, ‘TCGA-BH-A18K’, ‘TCGA-BH-A18L’, ‘TCGA-BH-A18M’, ‘TCGA-BH-A18N’, ‘TCGA-BH-A18P’, ‘TCGA-BH-A18Q’, ‘TCGA-BH-A18R’, ‘TCGA-BH-A18S’, ‘TCGA-BH-A18U’, ‘TCGA-BH-A18V’, ‘TCGA-BH-A1EN’, ‘TCGA-BH-A1EO’, ‘TCGA-BH-A1ES’, ‘TCGA-BH-A1ET’, ‘TCGA-BH-A1EU’, ‘TCGA-BH-A1EV’, ‘TCGA-BH-A1EW’, ‘TCGA-BH-A1EY’, ‘TCGA-BH-A1F0’, ‘TCGA-BH-A1F2’, ‘TCGA-BH-A1F5’, ‘TCGA-BH-A1F8’, ‘TCGA-BH-A1FB’, ‘TCGA-BH-A1FC’, ‘TCGA-BH-A1FD’, ‘TCGA-BH-A1FE’, ‘TCGA-BH-A1FG’, ‘TCGA-BH-A1FH’, ‘TCGA-BH-A1FJ’, ‘TCGA-BH-A1FM’, ‘TCGA-BH-A1FN’, ‘TCGA-BH-A1FR’, ‘TCGA-BH-A1FU’, ‘TCGA-BH-A203’, ‘TCGA-BH-A204’, ‘TCGA-BH-A208’, ‘TCGA-BH-A209’, ‘TCGA-E2-A14Y’, ‘TCGA-E2-A153’, ‘TCGA-E2-A158’, ‘TCGA-E2-A15A’, ‘TCGA-E2-A15E’, ‘TCGA-E2-A15I’, ‘TCGA-E2-A15K’, ‘TCGA-E2-A15L’, ‘TCGA-E2-A15M’, ‘TCGA-E2-A1B5’, ‘TCGA-E2-A1BC’, ‘TCGA-E2-A1IF’, ‘TCGA-E2-A1IG’, ‘TCGA-E2-A1II’, ‘TCGA-E2-A1IO’, ‘TCGA-E2-A1L7’, ‘TCGA-E2-A1LB’, ‘TCGA-E2-A1LH’, ‘TCGA-E2-A1LI’, ‘TCGA-E2-A1LS’, ‘TCGA-E9-A1N4’, ‘TCGA-E9-A1N5’, ‘TCGA-E9-A1N6’, ‘TCGA-E9-A1N8’, ‘TCGA-E9-A1N9’, ‘TCGA-E9-A1NA’, ‘TCGA-E9-A1ND’, ‘TCGA-E9-A1NE’, ‘TCGA-E9-A1NF’, ‘TCGA-E9-A1NG’, ‘TCGA-E9-A1R7’, ‘TCGA-E9-A1RB’, ‘TCGA-E9-A1RC’, ‘TCGA-E9-A1RD’, ‘TCGA-E9-A1RF’, ‘TCGA-E9-A1RH’, ‘TCGA-E9-A1RI’, ‘TCGA-GI-A2C8’, ‘TCGA-GI-A2C9’g
+Error in `.rowNamesDF<-`(x, value = value) : 
+  duplicate 'row.names' are not allowed
+Called from: `.rowNamesDF<-`(x, value = value)
+
+Resolved M2EFM input files:
+  Project:     D:/M2EFM_BRCA_Replication
+  Expression:  D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/csv_output/TCGA_BRCA_EXP.csv
+  Methylation: D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/csv_output/TCGA_BRCA_METH.csv
+  Clinical:    D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/csv_output/TCGA_BRCA_CLIN.csv
+  Output:      D:/M2EFM_BRCA_Replication/m2efm_os_lowram_output
+
+G3;[2026-07-31 22:37:04] R runtime: R version 4.5.0 (2025-04-11 ucrt)
+gG3;[2026-07-31 22:37:04] Output directory: D:/M2EFM_BRCA_Replication/m2efm_os_lowram_output
+gG3;[2026-07-31 22:37:04] Discovery mode: paper_signature
+gG3;[2026-07-31 22:37:04] Scaling scope: author_global
+gG3;[2026-07-31 22:37:04] Clinical/survival: collapsing 139 duplicated row(s) into 1062 unique patient IDs.
+gError in resolve_column(clinical, local_cfg$os_event_col, c("OS.event",  : 
+  Could not detect OS event column. Available columns: HER2.IHC, PAM50.RNAseq, num.lymphnodes.positive.by.he, pathologic_T, pathologic_stage, pathologic_N, pathologic_M, recurrence.free.survival.indicator, RECURRENCE.FREE.SURVIVAL, overall.survival.indicator, OVERALL.SURVIVAL, initial.weight, history.of.neoadj.Tx, histological.type, form_completion_date, cytokeratin.IHC.method.micrometastasis.indicator, PR.status, ER.status, age.Dx, sample.type, PAM50.array, pam50, ER, PR, HER2
+Called from: resolve_column(clinical, local_cfg$os_event_col, c("OS.event", 
+    "OS_event", "OS_STATUS", "OS.status", "overall_survival_event", 
+    "event", "status", "vital_status", "death_event", "OS"), 
+    "OS event")
+
+Resolved M2EFM input files:
+  Project:     D:/M2EFM_BRCA_Replication
+  Expression:  D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/csv_output/TCGA_BRCA_EXP.csv
+  Methylation: D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/csv_output/TCGA_BRCA_METH.csv
+  Clinical:    D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/csv_output/TCGA_BRCA_CLIN.csv
+  Output:      D:/M2EFM_BRCA_Replication/m2efm_os_lowram_output_v3
+
+G3;[2026-07-31 22:46:09] R runtime: R version 4.5.0 (2025-04-11 ucrt)
+gG3;[2026-07-31 22:46:09] Output directory: D:/M2EFM_BRCA_Replication/m2efm_os_lowram_output_v3
+gG3;[2026-07-31 22:46:09] Discovery mode: paper_signature
+gG3;[2026-07-31 22:46:09] Scaling scope: author_global
+gG3;[2026-07-31 22:46:10] Clinical/survival: collapsing 139 duplicated row(s) into 1Called from: prepare_os_clinical(clinical_merged, cfg)
+
+Resolved M2EFM input files:
+  Project:     D:/M2EFM_BRCA_Replication
+  Expression:  D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/csv_output/TCGA_BRCA_EXP.csv
+  Methylation: D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/csv_output/TCGA_BRCA_METH.csv
+  Clinical:    D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/csv_output/TCGA_BRCA_CLIN.csv
+  Output:      D:/M2EFM_BRCA_Replication/m2efm_os_lowram_output_v3
+
+Called from: prepare_os_clinical(clinical_merged, cfg)
+Package installation/check completed.
+R: R version 4.5.0 (2025-04-11 ucrt) 
+Bioconductor: 3.22 
+eath_days[event == 1L] : 
+  NAs are not allowed in subscripted assignments
+Called from: prepare_os_clinical(clinical_merged, cfg)
+
+Resolved M2EFM input files:
+  Project:     D:/M2EFM_BRCA_Replication
+  Expression:  D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/csv_output/TCGA_BRCA_EXP.csv
+  Methylation: D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/csv_output/TCGA_BRCA_METH.csv
+  Clinical:    D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/csv_output/TCGA_BRCA_CLIN.csv
+  Output:      D:/M2EFM_BRCA_Replication/m2efm_os_lowram_output_v3
+
+G3;[2026-07-31 22:57:26] R runtime: R version 4.5.0 (2025-04-11 ucrt)
+gG3;[2026-07-31 22:57:26] Output directory: D:/M2EFM_BRCA_Replication/m2efm_os_lowram_output_v3
+gG3;[2026-07-31 22:57:26] Discovery mode: paper_signature
+gG3;[2026-07-31 22:57:26] Scaling scope: author_global
+gG3;[2026-07-31 22:57:27] Clinical/survival: collapsing 139 duplicated row(s) into 1062 unique patient IDs.
+gG3;[2026-07-31 22:57:31] Clinical columns available: HER2.IHC | PAM50.RNAseq | num.lymphnodes.positive.by.he | pathologic_T | pathologic_stage | pathologic_N | pathologic_M | recurrence.free.survival.indicator | RECURRENCE.FREE.SURVIVAL | overall.survival.indicator | OVERALL.SURVIVAL | initial.weight | history.of.neoadj.Tx | histological.type | form_completion_date | cytokeratin.IHC.method.micrometastasis.indicator | PR.status | ER.status | age.Dx | sample.type | PAM50.array | pam50 | ER | PR | HER2
+gG3;[2026-07-31 22:57:31] OS event column detected: RECURRENCE.FREE.SURVIVAL
+gError in time[event == 1L] <- death_days[event == 1L] : 
+  NAs are not allowed in subscripted assignments
+Called from: prepare_os_clinical(clinical_merged, cfg)
+G3;'getOption("repos")' replaces Bioconductor standard repositories, see 'help("repositories", package = "BiocManager")' for details.
+Replacement repositories:
+    CRAN: https://cloud.r-project.org
+gG3;Bioconductor version 3.22 (BiocManager 1.30.27), R 4.5.0 (2025-04-11 ucrt)
+gPackage installation/check completed.
+R: R version 4.5.0 (2025-04-11 ucrt) 
+Bioconductor: 3.22 
+G2;H2;Warningh in file(filename, "r", encoding = encoding) :
+  cannot open file 'config.R': No such file or directoryg
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+G2;H2;Warningh in file(filename, "r", encoding = encoding) :
+  cannot open file 'config.R': No such file or directoryg
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+G2;H2;Warningh in file(filename, "r", encoding = encoding) :
+  cannot open file 'config.R': No such file or directoryg
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+G2;H2;Warningh in file(filename, "r", encoding = encoding) :
+  cannot open file 'config.R': No such file or directoryg
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+G2;H2;Warningh in file(filename, "r", encoding = encoding) :
+  cannot open file 'config.R': No such file or directoryg
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+G2;H2;Warningh in file(filename, "r", encoding = encoding) :
+  cannot open file 'config.R': No such file or directoryg
+Error in file(filename, "r", encoding = encoding) : 
+  cannot open the connection
+Error: object 'DATA_DIR' not found

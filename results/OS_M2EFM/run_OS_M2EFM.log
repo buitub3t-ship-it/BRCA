@@ -1,0 +1,82 @@
+Started: 2026-07-31 14:37:50 
+Project: D:/M2EFM_BRCA_Replication/M2EFM-master 
+Data: D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/csv_output 
+Results: D:/M2EFM_BRCA_Replication/M2EFM-master/results/OS_M2EFM 
+
+G3;No methods found in package ‘RSQLite’ for request: ‘dbListFields’ when loading ‘lumi’
+gThere were 29 warnings (use warnings() to see them)
+M2EFM version: 0.39 
+
+Resolved input files:
+                                                                                        
+    "D:/M2EFM_BRCA_Replication/M2EFM-master/inst    "D:/M2EFM_BRCA_Replication/M2EFM-mas
+                                                                                        
+     "D:/M2EFM_BRCA_Replication/M2EFM-master/ins     "D:/M2EFM_BRCA_Replication/M2EFM-ma
+                                                                                        
+    "D:/M2EFM_BRCA_Replication/M2EFM-master/inst    "D:/M2EFM_BRCA_Replication/M2EFM-mas
+                                                                                        
+ "D:/M2EFM_BRCA_Replication/M2EFM-master/inst/ex "D:/M2EFM_BRCA_Replication/M2EFM-master
+                                                                                        
+"D:/M2EFM_BRCA_Replication/M2EFM-master/inst/ext"D:/M2EFM_BRCA_Replication/M2EFM-master/
+                                                                                        
+      "D:/M2EFM_BRCA_Replication/M2EFM-master/in      "D:/M2EFM_BRCA_Replication/M2EFM-m
+                                                                                        
+     "D:/M2EFM_BRCA_Replication/M2EFM-master/ins     "D:/M2EFM_BRCA_Replication/M2EFM-ma
+                                                                                        
+         "D:/M2EFM_BRCA_Replication/M2EFM-master         "D:/M2EFM_BRCA_Replication/M2EF
+
+Loading TCGA methylation...
+G3;Loading required package: impute
+gWarning Loading TCGA expression...
+Loading Terunuma expression...
+Loading Kao expression...
+
+Raw dimensions (features x samples):
+TCGA methylation: 7313 x 878 
+TCGA expression : 10000 x 1059 
+Terunuma exp    : 33297 x 61 
+Kao exp         : 10000 x 327 
+
+
+Finding TCGA m2eQTLs. This may take substantial time...
+Selected trans genes: 107 
+Selected probes     : 7 
+TCGA: dropping 20 samples missing OS/covariates.
+TCGA usable OS samples: 1039 
+Terunuma: dropping 0 samples missing OS/covariates.
+Kao: dropping 0 samples missing OS/covariates.
+Terunuma usable OS samples: 61 
+Kao usable OS samples     : 327 
+
+sk finished in 2.37 seconds
+gG3;Processing covariates
+gG3;Task finished in 0 seconds
+gG3;Processing gene expression data (imputation, residualization)
+gG3;Task finished in 0.8 seconds
+gG3;Creating output file(s)
+gG3;Task finished in 0.05 seconds
+gG3;Performing eQTL analysis
+gG3;10.00% done, 27 cis-eQTLs, 9,218 trans-eQTLs
+gG3;19.99% done, 64 cis-eQTLs, 17,513 trans-eQTLs
+gG3;30.00% done, 132 cis-eQTLs, 24,099 trans-eQTLs
+gG3;39.99% done, 146 cis-eQTLs, 32,733 trans-eQTLs
+gG3;50.00% done, 183 cis-eQTLs, 42,012 trans-eQTLs
+gG3;60.00% done, 298 cis-eQTLs, 50,972 trans-eQTLs
+gG3;70.00% done, 361 cis-eQTLs, 60,256 trans-eQTLs
+gG3;80.00% done, 375 cis-eQTLs, 69,506 trans-eQTLs
+gG3;89.99% done, 394 cis-eQTLs, 78,198 trans-eQTLs
+gG3;100.00% done, 394 cis-eQTLs, 80,653 trans-eQTLs
+gG3;Task finished in 4.42 seconds
+gG3;
+gWarning message:
+package ‘MatrixEQTL’ was built under R version 4.5.2 
+Selected trans genes: 107 
+Selected probes     : 7 
+TCGA: dropping 20 samples missing OS/covariates.
+TCGA usable OS samples: 1039 
+Terunuma: dropping 0 samples missing OS/covariates.
+Kao: dropping 0 samples missing OS/covariates.
+Terunuma usable OS samples: 61 
+Kao usable OS samples     : 327 
+
+Error: Terunuma is missing 107 selected genes. First examples: A2ML1, ABAT, ACADSB, ADAM6, AFF3, AKR7A3, ANKRD30A, ANXA9, BCAS1, CA12, CACNA2D2, CAPN13, CCL19, CD3E, CD79A, CHAD, CHI3L1, CLSTN2, CRABP1, CXCL13

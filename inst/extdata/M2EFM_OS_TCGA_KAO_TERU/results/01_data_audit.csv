@@ -1,0 +1,5 @@
+dataset,n_features,n_molecular_samples,n_clinical_samples,n_id_overlap,n_complete_os,molecular_missing_cells,notes
+TCGA_expression,9025,1059,1059,1059,1039,0,Common-gene matrix; complete OS expected near 1039 in current files.
+TCGA_methylation,7313,878,1059,748,1039,0,Contains tumor/normal/metastatic samples; matched tumor subset selected later.
+Kao_expression,9025,327,327,327,327,0,External validation cohort.
+Terunuma_expression_gene_level,9025,61,61,61,61,0,Mapped from 33297 transcript clusters; 18865 gene symbols before common-gene filtering.

@@ -1,0 +1,9 @@
+﻿file_name,patients,features,size_patients_x_features,missing_cells,total_feature_cells,missing_percent,id_column_excluded,stored_orientation
+"KAO_BRCA_CLIN.csv",327,10,"327 × 10",0,3270,0,"sample_id","patients × features"
+"KAO_BRCA_EXP.csv",327,10000,"327 × 10,000",0,3270000,0,"gene_id","features × patients"
+"TCGA_BRCA_CLIN.csv",1201,25,"1,201 × 25",2884,30025,9.605329,"sample_id","patients × features"
+"TCGA_BRCA_EXP.csv",1059,10000,"1,059 × 10,000",0,10590000,0,"gene_id","features × patients"
+"TCGA_BRCA_METH.csv",878,7313,"878 × 7,313",0,6420814,0,"probe_id","features × patients"
+"TERUNUMA_BRCA_CLIN.csv",61,19,"61 × 19",0,1159,0,"sample_id","patients × features"
+"TERUNUMA_BRCA_CLIN_RAW.csv",61,59,"61 × 59",0,3599,0,"sample_id","patients × features"
+"TERUNUMA_BRCA_EXP.csv",61,33297,"61 × 33,297",0,2031117,0,"probe_id","features × patients"

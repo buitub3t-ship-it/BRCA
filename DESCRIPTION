@@ -1,0 +1,15 @@
+Package: M2EFM
+Version: 0.39
+Date: 2017-06-15
+Title: M2EFM
+Authors: c(person("Jeffrey Thompson",
+    "Developer",
+    email = "..."))
+Author: Jeffrey Thompson
+Maintainer: Jeffrey Thompson <jeffrey.a.thompson.gr@dartmouth.edu>
+Description: A package for performed M2EFM (Methylation to Expression Feature Model) analysis.
+License: BSD (3 Clause)
+Suggests: knitr
+VignetteBuilder: knitr
+RoxygenNote: 5.0.1.9000
+Depends: R6, data.table, glmnet, lumi, survival, scales, survcomp, mice, jsonlite, org.Hs.eg.db, sva, org.Hs.eg.db, IlluminaHumanMethylation450kanno.ilmn12.hg19, AnnotationDbi

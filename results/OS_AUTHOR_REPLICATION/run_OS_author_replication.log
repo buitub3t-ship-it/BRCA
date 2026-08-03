@@ -1,0 +1,119 @@
+Started: 2026-07-31 15:27:04 
+R version: R version 4.5.0 (2025-04-11 ucrt) 
+Project: D:/M2EFM_BRCA_Replication/M2EFM-master 
+Data: D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/csv_output 
+Results: D:/M2EFM_BRCA_Replication/M2EFM-master/results/OS_AUTHOR_REPLICATION 
+
+G2;H2;Warningh: package ‘data.table’ was built under R version 4.5.3g
+G2;H2;Warningh: package ‘glmnet’ was built under R version 4.5.3g
+G2;H2;Warningh: package ‘Matrix’ was built under R version 4.5.3g
+G2;H2;Warningh: package ‘lumi’ was built under R version 4.5.2g
+G2;H2;Warningh: package ‘Biobase’ was built under R version 4.5.3g
+G2;H2;Warningh: package ‘BiocGenerics’ was built under R version 4.5.2g
+G2;H2;Warningh: package ‘generics’ was built under R version 4.5.3g
+G3;No methods found in package ‘RSQLite’ for request: ‘dbListFields’ when loading ‘lumi’
+gG2;H2;Warningh: package ‘survival’ was built under R version 4.5.3g
+G2;H2;Warningh: package ‘survcomp’ was built under R version 4.5.2g
+G2;H2;Warningh: package ‘prodlim’ was built under R version 4.5.3g
+G2;H2;Warningh: package ‘mice’ was built under R version 4.5.3g
+G2;H2;Warningh: package ‘AnnotationDbi’ was built under R version 4.5.2g
+G2;H2;Warningh: package ‘IRanges’ was built under R version 4.5.2g
+G2;H2;Warningh: package ‘S4Vectors’ was built under R version 4.5.3g
+G2;H2;Warningh: package ‘sva’ was built under R version 4.5.2g
+G2;H2;Warningh: package ‘mgcv’ was built under R version 4.5.3g
+G2;H2;Warningh: package ‘nlme’ was built under R version 4.5.3g
+G2;H2;Warningh: package ‘genefilter’ was built under R version 4.5.2g
+G2;H2;Warningh: package ‘BiocParallel’ was built under R version 4.5.2g
+G2;H2;Warningh: package ‘minfi’ was built under R version 4.5.2g
+G2;H2;Warningh: package ‘GenomicRanges’ was built under R version 4.5.2g
+G2;H2;Warningh: package ‘Seqinfo’ was built under R version 4.5.2g
+G2;H2;Warningh: package ‘SummarizedExperiment’ was built under R version 4.5.2g
+G2;H2;Warningh: package ‘MatrixGenerics’ was built under R version 4.5.2g
+G2;H2;Warningh: package ‘matrixStats’ was built under R version 4.5.3g
+G2;H2;Warningh: package ‘Biostrings’ was built under R version 4.5.2g
+G2;H2;Warningh: package ‘XVector’ was built under R version 4.5.2g
+G2;H2;Warningh: package ‘bumphunter’ was built under R version 4.5.2g
+G2;H2;Warningh: package ‘locfit’ was built under R version 4.5.3g
+M2EFM version: 0.39 
+
+Resolved files:
+                                                                              TCGA_METH 
+    "D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/csv_output/TCGA_BRCA_METH.csv" 
+                                                                               TCGA_EXP 
+     "D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/csv_output/TCGA_BRCA_EXP.csv" 
+                                                                              TCGA_CLIN 
+    "D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/csv_output/TCGA_BRCA_CLIN.csv" 
+                                                                               TERU_EXP 
+ "D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/csv_output/TERUNUMA_BRCA_EXP.csv" 
+                                                                              TERU_CLIN 
+"D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/csv_output/TERUNUMA_BRCA_CLIN.csv" 
+                                                                                KAO_EXP 
+      "D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/csv_output/KAO_BRCA_EXP.csv" 
+                                                                               KAO_CLIN 
+     "D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/csv_output/KAO_BRCA_CLIN.csv" 
+                                                                              PROBELIST 
+         "D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/csv_output/PROBELIST.csv" 
+
+Rediscovering m2eQTLs with author settings:
+  Top CpGs supplied to MatrixEQTL: 550
+  Maximum trans candidates: 110
+  Cis distance: 10,000 bp (implemented inside M2EFM/MatrixEQTL)
+
+G3;Loading required package: impute
+gG2;H2;Warningh: package ‘impute’ was built under R version 4.5.2g
+G2;H2;Warningh: package ‘MatrixEQTL’ was built under R version 4.5.2g
+G3;Matching data files and location files
+gG3;9264 of 9264 genes matched
+gG3;550 of 550 SNPs matched
+
+gG3;Task finished in 0 seconds
+gG3;Reordering SNPs
+gG3;Task finished in 1.76 seconds
+gG3;Reordering genes
+gG3;Task finished in 1.94 seconds
+gG3;Processing covariates
+gG3;Task finished in 0.01 seconds
+gG3;Processing gene expression data (imputation, residualization)
+gG3;Task finished in 0.21 seconds
+gG3;Creating output file(s)
+gG3;Task finished in 0.03 seconds
+gG3;Performing eQTL analysis
+gG3;10.00% done, 41 cis-eQTLs, 17,031 trans-eQTLs
+gG3;19.99% done, 126 cis-eQTLs, 32,185 trans-eQTLs
+gG3;30.00% done, 244 cis-eQTLs, 44,500 trans-eQTLs
+gG3;39.99% done, 274 cis-eQTLs, 60,547 trans-eQTLs
+gG3;50.00% done, 334 cis-eQTLs, 77,580 trans-eQTLs
+gG3;60.00% done, 511 cis-eQTLs, 94,088 trans-eQTLs
+gG3;70.00% done, 602 cis-eQTLs, 111,393 trans-eQTLs
+gG3;80.00% done, 622 cis-eQTLs, 128,654 trans-eQTLs
+gG3;89.99% done, 675 cis-eQTLs, 145,114 trans-eQTLs
+gG3;100.00% done, 676 cis-eQTLs, 149,664 trans-eQTLs
+gG3;Task finished in 6.28 seconds
+gG3;
+gFeature audit:
+                         feature_type published_count rediscovered_count
+1    trans genes for integrated model             108                110
+2 all genes for expression-only model             115                119
+3                       m2eQTL probes              13                 12
+
+Published Table S4 features are used in all fitted models below.
+
+           used  (Mb) gc trigger   (Mb)  max used   (Mb)
+Ncells 14385061 768.3   22857761 1220.8  18798702 1004.0
+Vcells 27129487 207.0   91696528  699.6 114620055  874.5
+Loading model input matrices...
+
+Raw dimensions (features x samples):
+TCGA methylation: 7313 x 878 
+TCGA expression : 10000 x 1059 
+Terunuma exp    : 33297 x 61 
+Kao exp         : 10000 x 327 
+
+Applying author-style TCGA clinical filtering...
+TCGA genuinely missing stages before TNM inference: 0 
+TCGA stages inferred from TNM: 0 
+TCGA Stage X after outcome filtering: 0 
+TCGA raw Stage X count after outcome filtering: 0 
+TCGA final OS cohort: 1039 
+
+Error: TCGA final cohort is 1039, but the published cohort is 1028. See TCGA_filter_audit.csv and TCGA_stage_inference_audit.csv. Do not continue if exact author replication is required.

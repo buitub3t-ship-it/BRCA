@@ -1,0 +1,5 @@
+"cohort","samples","published_reference","interpretation"
+"TCGA expression+clinical OS",1039,1028,"Released clinical file no longer retains original Stage X/missing-stage labels"
+"TCGA expression+methylation+clinical OS",743,743,"Matches published overlap sample count"
+"Terunuma expression+clinical OS",61,61,"Matches publication"
+"Kao expression+clinical OS",327,327,"Matches publication"

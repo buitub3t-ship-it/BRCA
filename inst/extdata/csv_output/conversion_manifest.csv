@@ -1,0 +1,8 @@
+﻿source,output,id_column,rows,columns,status,message
+"D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/TCGA_BRCA_CLIN.txt","D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/csv_output/TCGA_BRCA_CLIN.csv","sample_id",1201,26,"OK",""
+"D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/TCGA_BRCA_EXP.txt","D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/csv_output/TCGA_BRCA_EXP.csv","gene_id",10000,1060,"OK",""
+"D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/TCGA_BRCA_METH.txt","D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/csv_output/TCGA_BRCA_METH.csv","probe_id",7313,879,"OK",""
+"D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/KAO_BRCA_CLIN.txt","D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/csv_output/KAO_BRCA_CLIN.csv","sample_id",327,11,"OK",""
+"D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/KAO_BRCA_EXP.txt","D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/csv_output/KAO_BRCA_EXP.csv","gene_id",10000,328,"OK",""
+"D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/PROBELIST.txt","D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/csv_output/PROBELIST.csv","probe_id",7318,1,"OK",""
+"D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/crossReactive.txt","D:/M2EFM_BRCA_Replication/M2EFM-master/inst/extdata/csv_output/crossReactive.csv","probe_id",29233,1,"OK",""

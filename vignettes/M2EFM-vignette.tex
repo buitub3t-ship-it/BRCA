@@ -1,0 +1,821 @@
+---
+title: "M2EFM"
+author: "Jeffrey A. Thompson"
+date: "`r Sys.Date()`"
+output: html_vignette
+vignette: >
+  %\VignetteIndexEntry{M2EFM}
+  %\VignetteEngine{knitr::knitr}
+  %\VignetteEncoding{UTF-8}
+---
+
+The M2EFM package allows you to build methylation-to-expression feature models and evaluate them, using internal and external validation data. Here is a quick example of how to run an analysis.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+        \hlkwd{library}\hlstd{(M2EFM)}
+\end{alltt}
+
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: R6}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: data.table}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# data.table 1.9.6\ \ For help type ?data.table or https://github.com/Rdatatable/data.table/wiki}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# The fastest way to learn (by data.table authors): https://www.datacamp.com/courses/data-analysis-the-data-table-way}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: glmnet}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: Matrix}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: foreach}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# foreach: simple, scalable parallel programming from Revolution Analytics\\\#\# Use Revolution R for scalability, fault tolerance and more.\\\#\# http://www.revolutionanalytics.com}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loaded glmnet 2.0-5}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: lumi}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: Biobase}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: BiocGenerics}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: parallel}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# \\\#\# Attaching package: 'BiocGenerics'}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# The following objects are masked from 'package:parallel':\\\#\# \\\#\#\ \ \ \  clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,\\\#\#\ \ \ \  clusterExport, clusterMap, parApply, parCapply, parLapply,\\\#\#\ \ \ \  parLapplyLB, parRapply, parSapply, parSapplyLB}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# The following objects are masked from 'package:stats':\\\#\# \\\#\#\ \ \ \  IQR, mad, xtabs}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# The following objects are masked from 'package:base':\\\#\# \\\#\#\ \ \ \  anyDuplicated, append, as.data.frame, cbind, colnames,\\\#\#\ \ \ \  do.call, duplicated, eval, evalq, Filter, Find, get, grep,\\\#\#\ \ \ \  grepl, intersect, is.unsorted, lapply, lengths, Map, mapply,\\\#\#\ \ \ \  match, mget, order, paste, pmax, pmax.int, pmin, pmin.int,\\\#\#\ \ \ \  Position, rank, rbind, Reduce, rownames, sapply, setdiff,\\\#\#\ \ \ \  sort, table, tapply, union, unique, unsplit}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Welcome to Bioconductor\\\#\# \\\#\#\ \ \ \  Vignettes contain introductory material; view with\\\#\#\ \ \ \  'browseVignettes()'. To cite Bioconductor, see\\\#\#\ \ \ \  'citation("{}Biobase"{})', and for packages 'citation("{}pkgname"{})'.}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Setting options('download.file.method.GEOquery'='auto')}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Setting options('GEOquery.inmemory.gpl'=FALSE)}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: survival}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: scales}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: survcomp}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: prodlim}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: mice}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: Rcpp}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# mice 2.25 2015-11-09}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: jsonlite}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: org.Hs.eg.db}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: AnnotationDbi}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning: package 'AnnotationDbi' was built under R version 3.3.1}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: stats4}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: IRanges}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: S4Vectors}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning: package 'S4Vectors' was built under R version 3.3.1}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# \\\#\# Attaching package: 'S4Vectors'}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# The following objects are masked from 'package:Matrix':\\\#\# \\\#\#\ \ \ \  colMeans, colSums, expand, rowMeans, rowSums}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# The following objects are masked from 'package:base':\\\#\# \\\#\#\ \ \ \  colMeans, colSums, expand.grid, rowMeans, rowSums}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# \\\#\# Attaching package: 'IRanges'}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# The following object is masked from 'package:data.table':\\\#\# \\\#\#\ \ \ \  shift}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# }}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: sva}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: mgcv}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: nlme}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# \\\#\# Attaching package: 'nlme'}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# The following object is masked from 'package:IRanges':\\\#\# \\\#\#\ \ \ \  collapse}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# This is mgcv 1.8-14. For overview type 'help("{}mgcv-package"{})'.}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: genefilter}}\begin{alltt}
+        \hlstd{meth} \hlkwb{=} \hlkwd{load_meth}\hlstd{(}\hlkwd{system.file}\hlstd{(}\hlstr{"extdata"}\hlstd{,} \hlstr{"TCGA_BRCA_METH.txt"}\hlstd{,}
+                \hlkwc{package}\hlstd{=}\hlstr{"M2EFM"}\hlstd{))}
+        \hlstd{exp} \hlkwb{=} \hlkwd{load_exp}\hlstd{(}\hlkwd{system.file}\hlstd{(}\hlstr{"extdata"}\hlstd{,} \hlstr{"TCGA_BRCA_EXP.txt"}\hlstd{,}
+                \hlkwc{package}\hlstd{=}\hlstr{"M2EFM"}\hlstd{))}
+\end{alltt}
+
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: impute}}\begin{alltt}
+        \hlstd{m2e} \hlkwb{=} \hlkwd{get_m2eqtls}\hlstd{(}\hlkwc{probe_list}\hlstd{=}\hlkwd{system.file}\hlstd{(}\hlstr{"extdata"}\hlstd{,} \hlstr{"PROBELIST.txt"}\hlstd{,}
+                \hlkwc{package}\hlstd{=}\hlstr{"M2EFM"}\hlstd{),} \hlkwc{meth_data}\hlstd{=meth,} \hlkwc{exp_data}\hlstd{=exp)}
+\end{alltt}
+
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning: package 'GenomicFeatures' was built under R version 3.3.1}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning: package 'GenomeInfoDb' was built under R version 3.3.1}}\begin{verbatim}
+## Matching data files and location files 
+## 110 of 110  genes matched
+## 11 of 300  SNPs matched
+## Task finished in  0.003  seconds
+## Reordering SNPs
+##  
+## Task finished in  0.808  seconds
+## Reordering genes
+##  
+## Task finished in  0.756  seconds
+## Processing covariates 
+## Task finished in  0.002  seconds
+## Processing gene expression data (imputation, residualization, etc.) 
+## Task finished in  0.005  seconds
+## Creating output file(s) 
+## Task finished in  0.027  seconds
+## Performing eQTL analysis 
+## 100.00% done, 11 cis-eQTLs, 377 trans-eQTLs
+## Task finished in  0.073  seconds
+## 
+\end{verbatim}
+\begin{alltt}
+        \hlcom{# Load the TCGA clinical data.}
+        \hlstd{clin} \hlkwb{=} \hlkwd{read.table}\hlstd{(}\hlkwd{system.file}\hlstd{(}\hlstr{"extdata"}\hlstd{,} \hlstr{"TCGA_BRCA_CLIN.txt"}\hlstd{,}
+                \hlkwc{package}\hlstd{=}\hlstr{"M2EFM"}\hlstd{),} \hlkwc{sep}\hlstd{=}\hlstr{"\textbackslash{}t"}\hlstd{,} \hlkwc{header}\hlstd{=T,} \hlkwc{row.names}\hlstd{=}\hlnum{1}\hlstd{)}
+
+        \hlcom{# Set covariates to be used in models.}
+        \hlstd{covariates} \hlkwb{=} \hlkwd{c}\hlstd{(}\hlstr{"pathologic_stage"}\hlstd{,} \hlstr{"age.Dx"}\hlstd{)}
+
+        \hlcom{# Assuming this is TCGA data, filter out all but the tumor samples.}
+        \hlstd{exp}\hlopt{$}\hlstd{values} \hlkwb{=} \hlstd{exp}\hlopt{$}\hlstd{values[,}\hlkwd{grep}\hlstd{(}\hlstr{"-01"}\hlstd{,} \hlkwd{colnames}\hlstd{(exp}\hlopt{$}\hlstd{values))]}
+        \hlstd{clin} \hlkwb{=} \hlstd{clin[}\hlkwd{grep}\hlstd{(}\hlstr{"-01"}\hlstd{,} \hlkwd{rownames}\hlstd{(clin)),]}
+
+        \hlstd{eval_results} \hlkwb{=} \hlkwd{evaluate}\hlstd{(}
+                \hlstd{meth}\hlopt{$}\hlstd{m_values, exp}\hlopt{$}\hlstd{values,} \hlkwc{clin} \hlstd{= clin,} \hlkwc{eqtls} \hlstd{= m2e,}
+                \hlkwc{gene_type}\hlstd{=}\hlstr{"trans"}\hlstd{,}
+                \hlkwc{covariates}\hlstd{=covariates,}
+                \hlkwc{monte_carlo_size}\hlstd{=}\hlnum{100}\hlstd{,}
+                \hlkwc{integrate_data}\hlstd{=}\hlnum{FALSE}\hlstd{)}
+\end{alltt}
+
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 20 samples dropped for missing survival data.}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 1}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.760719225449516 0.805804015106341 0.641770401106501}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.760719225449516}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 2}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.793342911877395 0.801397927211376 0.708093869731801}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.777031068663455}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 3}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.725232853513971 0.662489379779099 0.669136325148179}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.759764996946961}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 4}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.782805429864253 0.77116912599319 0.704751131221719}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.765525105176284}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 5}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.826086956521739 0.788958594730238 0.738130934532734}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.777637475445375}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 6}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.781119851920407 0.763708178438662 0.652475705691809}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.778217871524547}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 7}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.768337975858867 0.777959374270371 0.66991643454039}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.776806457858021}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 8}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.734120734908136 0.769230769230769 0.648293963254593}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.771470742489286}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 9}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.696437925615506 0.712701346712437 0.634363541121006}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.763133762836643}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 10}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.783033419023136 0.740568475452197 0.705912596401028}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.765123728455293}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 11}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.712679856115108 0.706534026678725 0.649730215827338}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.760356103697094}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 12}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.772952295229523 0.754635911352329 0.713546354635463}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.761405786324796}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 13}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.653617544578807 0.691103789126853 0.591309694609551}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.753114383113566}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 14}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.779359430604982 0.735418994413408 0.697064056939502}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.754989029362953}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 15}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.764796074823674 0.807893925377737 0.679546151487274}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.755642832393668}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 16}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.782141290039491 0.760026443367122 0.674857393593681}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.757298985996532}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 17}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.72060470324748 0.709036370453693 0.684397163120567}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.755140498775999}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 18}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.74785939612438 0.828577898550725 0.650743578188373}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.754735993073132}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 19}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.742394504416094 0.71527263755243 0.70387634936212}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.754086441038551}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 20}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.793118956599955 0.742670275146594 0.733528221272768}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.756038066816621}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 21}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.732793522267207 0.682033898305085 0.697705802968961}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.754931183742839}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 22}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.755269580652319 0.756678539626002 0.726647437319725}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.754946565420543}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 23}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.711037527593819 0.70851818988465 0.688520971302428}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.753037476819381}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 24}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.700326619488296 0.746652090735173 0.608056614044638}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.750841191097253}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 25}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.629093016516952 0.62882096069869 0.573167197913648}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.74597126411404}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 26}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.715940569126165 0.783434650455927 0.642659279778393}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.744816237383738}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 27}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.735427075898168 0.770480057320277 0.625981441827266}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.74446849066205}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 28}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.613221223543056 0.659959171770195 0.547115105827776}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.739781088264943}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 29}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.735392320534224 0.739312657166806 0.695047301057318}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.739629751446642}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 30}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.735993208828523 0.734003851915258 0.661502546689304}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.739508533359372}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 31}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.740674955595027 0.735406576599541 0.669880740928698}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.739546159883102}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 32}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.779217973644416 0.742272529386156 0.729963275005401}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.740785904063143}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 33}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.755464809031948 0.768322082931533 0.683401393226039}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.741230719365228}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 34}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.746275986249795 0.725251194201944 0.7037158291046}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.741379109567716}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 35}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.806171894924764 0.792414146591492 0.707472583524611}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.743230332006488}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 36}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.67593984962406 0.678337531486146 0.668421052631579}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.74136115194031}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 37}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.82341650671785 0.780007719027403 0.740499040307102}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.743578864231595}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 38}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.697146363915311 0.71040444581661 0.642528382939552}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.742356956328535}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 39}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.7375 0.683939491470872 0.67948717948718}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.742232418986777}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 40}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.799946723494939 0.828380187416332 0.686201385189132}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.743675276599481}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 41}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.656297039638736 0.717774420946626 0.614400401404917}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.741544100088244}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 42}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.64993246285457 0.721289151157513 0.589149031967582}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.739362870630299}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 43}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.700195950359242 0.70634746321107 0.651426083170041}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.738452012019344}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 44}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.729499898764932 0.741705678811317 0.658635351285685}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.738248554899926}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 45}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.699767904509284 0.77940686437854 0.624668435013263}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.73739342933569}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 46}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.772862910303669 0.747881355932203 0.672985781990521}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.738164505008906}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 47}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.75970460140125 0.733993902439024 0.676955122135959}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.738622804932148}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 48}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.720628585682215 0.800601956358164 0.624594662010476}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.738247925364441}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 49}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.717396940627431 0.729947916666667 0.665543168265491}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.737822395063685}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 50}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.753857640617222 0.764838467317806 0.710054753608761}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.738143099974756}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 51}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.722769028871391 0.766079947359763 0.650426509186352}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.73784164760018}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 52}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.812913177611283 0.761081560283688 0.753195240193918}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.739285330869625}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 53}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.748220064724919 0.78804347826087 0.639913700107875}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.739453910753687}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 54}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.739861315402395 0.759966251845602 0.646564404286615}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.739461455284218}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 55}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.669828722002635 0.712695467797509 0.597364953886693}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.73819540558819}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 56}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.715160796324655 0.722880983750549 0.667031284182892}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.737784073279912}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 57}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.737956428352255 0.783575177523927 0.680270021478981}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.737787097053111}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 58}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.661136796301333 0.689163237311385 0.622518357356541}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.736465540143598}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 59}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.779264214046823 0.721054107092795 0.738294314381271}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.737190941396195}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 60}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.837879795963628 0.793809841906034 0.756930583277889}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.738869088972319}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 61}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.685216732916903 0.727498566787693 0.600416430058679}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.737989542151738}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 62}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.738461538461538 0.772473651580905 0.678358974358974}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.737997154995445}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 63}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.757435897435897 0.713916860315001 0.73025641025641}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.738305706462753}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 64}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.737394184762606 0.740343744224727 0.68237026131763}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.738291463936189}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 65}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.790963629546307 0.793890250801433 0.728158980127484}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.739101804945575}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 66}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.752577319587629 0.746364037020714 0.704979162096951}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.739305979409849}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 67}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.739209039548023 0.824637023593466 0.662824858757062}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.739304532546239}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 68}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.731288981288981 0.791427077888134 0.636174636174636}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.739186656792456}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 69}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.678488982161595 0.685243825205826 0.611752360965373}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.738306980348531}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 70}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.781131393457437 0.791575889615105 0.677028736670884}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.738918757678658}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 71}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.777743902439024 0.729505680073688 0.698780487804878}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.739465590703452}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 72}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.739547038327526 0.709345589844605 0.676393728222996}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.739466721920453}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 73}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.681619256017506 0.720450797141286 0.62855579868709}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.738674290880686}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 74}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.72230619736558 0.704693611473272 0.662275966313971}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.73845310042778}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 75}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.724129593810445 0.732038834951456 0.654738878143133}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.738262120339548}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 76}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.81079717457114 0.761735600101497 0.755802219979818}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.739216528947859}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 77}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.715935334872979 0.786194116284457 0.628637413394919}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.738914175778055}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 78}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.735149232106636 0.655604075691412 0.691973341060562}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.738865907269447}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 79}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.799269046949677 0.792889390519187 0.755692999718864}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.73963050397426}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 80}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.690184049079755 0.72533509118875 0.62182296231376}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.739012423288079}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 81}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.756950880444856 0.800325430032543 0.653151065801668}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.739233885722113}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 82}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.706838939630207 0.711116091438817 0.641345511249722}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.738838825403919}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 83}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.676274352815586 0.733726225555853 0.570322925006672}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.738085036577554}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 84}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.734120734908136 0.696889826041118 0.675590551181102}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.738037842510061}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 85}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.736113780511244 0.723038268264399 0.66058043436479}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.738015206486545}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 86}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.7722549845549 0.824759751271905 0.671721426565571}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.738413343440828}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 87}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.803571428571428 0.713359273670558 0.730590062111801}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.739162286948077}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 88}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.747660979636764 0.766832229580574 0.673087506879472}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.739258863001357}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 89}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.792343806428313 0.777737359039651 0.717948717948718}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.739855323039862}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 90}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.737713267125032 0.776497695852534 0.697478991596639}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.739831522418587}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 91}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.782973092192325 0.801905606027033 0.726731363034848}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.740305605602913}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 92}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.607603092783505 0.648412184057032 0.552512886597938}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.738863186985311}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 93}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.734649715985935 0.711105077382569 0.709223694887747}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.738817880845533}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 94}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.74740207833733 0.752077191101581 0.689315214495071}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.738909202095446}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 95}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.726395173453997 0.757795943082047 0.625942684766214}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.738777475478167}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 96}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.729969574036511 0.74395520488674 0.663286004056795}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.738685726504817}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 97}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.721818181818182 0.700365965233303 0.657727272727273}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.738511834291552}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 98}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.741837765062269 0.764855256475368 0.672837428475261}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.738545772360641}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 99}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.717607223476298 0.748750567923671 0.662979683972912}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.73833427186686}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Seed 100}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# 0.787797218483625 0.770443793647218 0.714894571556752}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Mean C-index: 0.738828901333027}}\begin{alltt}
+        \hlkwd{plot}\hlstd{(eval_results)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-1-1} 
+
+\end{knitrout}
+
+You can enable figure captions by `fig_caption: yes` in YAML:
+
+    output:
+      rmarkdown::html_vignette:
+        fig_caption: yes
+
+Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
+
+## More Examples
+
+You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
+
+
+\begin{tabular}{l|r|r|r|r|r|r|r|r|r|r|r}
+\hline
+  & mpg & cyl & disp & hp & drat & wt & qsec & vs & am & gear & carb\\
+\hline
+Mazda RX4 & 21.0 & 6 & 160.0 & 110 & 3.90 & 2.620 & 16.46 & 0 & 1 & 4 & 4\\
+\hline
+Mazda RX4 Wag & 21.0 & 6 & 160.0 & 110 & 3.90 & 2.875 & 17.02 & 0 & 1 & 4 & 4\\
+\hline
+Datsun 710 & 22.8 & 4 & 108.0 & 93 & 3.85 & 2.320 & 18.61 & 1 & 1 & 4 & 1\\
+\hline
+Hornet 4 Drive & 21.4 & 6 & 258.0 & 110 & 3.08 & 3.215 & 19.44 & 1 & 0 & 3 & 1\\
+\hline
+Hornet Sportabout & 18.7 & 8 & 360.0 & 175 & 3.15 & 3.440 & 17.02 & 0 & 0 & 3 & 2\\
+\hline
+Valiant & 18.1 & 6 & 225.0 & 105 & 2.76 & 3.460 & 20.22 & 1 & 0 & 3 & 1\\
+\hline
+Duster 360 & 14.3 & 8 & 360.0 & 245 & 3.21 & 3.570 & 15.84 & 0 & 0 & 3 & 4\\
+\hline
+Merc 240D & 24.4 & 4 & 146.7 & 62 & 3.69 & 3.190 & 20.00 & 1 & 0 & 4 & 2\\
+\hline
+Merc 230 & 22.8 & 4 & 140.8 & 95 & 3.92 & 3.150 & 22.90 & 1 & 0 & 4 & 2\\
+\hline
+Merc 280 & 19.2 & 6 & 167.6 & 123 & 3.92 & 3.440 & 18.30 & 1 & 0 & 4 & 4\\
+\hline
+\end{tabular}
+
+

@@ -1,0 +1,10 @@
+model,n_valid,expected,complete
+Clin,100,100,TRUE
+M2EFM Meth+Exp+Clin,100,100,TRUE
+M2EFM Exp+Clin,100,100,TRUE
+Cox Meth+Exp+Clin,0,100,FALSE
+rorS+Clin,0,100,FALSE
+M2EFM Meth+Exp,100,100,TRUE
+M2EFM Exp,100,100,TRUE
+Cox Meth+Exp,0,100,FALSE
+rorS,0,100,FALSE
