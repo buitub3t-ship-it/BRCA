@@ -1065,14 +1065,10 @@ sample_audit <- do.call(
         tcga_ready$expression_complete
       ),
       OS_events = sum(
-        tcga_ready$clinical_complete[
-          [EVENT_COL]
-        ] == 1
+        tcga_ready$clinical_complete[[EVENT_COL]] == 1
       ),
       OS_censored = sum(
-        tcga_ready$clinical_complete[
-          [EVENT_COL]
-        ] == 0
+        tcga_ready$clinical_complete[[EVENT_COL]] == 0
       ),
       time_column = TIME_COL,
       event_column = EVENT_COL
@@ -1091,14 +1087,10 @@ sample_audit <- do.call(
         teru_ready$expression_complete
       ),
       OS_events = sum(
-        teru_ready$clinical_complete[
-          [EVENT_COL]
-        ] == 1
+        teru_ready$clinical_complete[[EVENT_COL]] == 1
       ),
       OS_censored = sum(
-        teru_ready$clinical_complete[
-          [EVENT_COL]
-        ] == 0
+        teru_ready$clinical_complete[[EVENT_COL]] == 0
       ),
       time_column = TIME_COL,
       event_column = EVENT_COL
@@ -1117,14 +1109,10 @@ sample_audit <- do.call(
         kao_ready$expression_complete
       ),
       OS_events = sum(
-        kao_ready$clinical_complete[
-          [EVENT_COL]
-        ] == 1
+        kao_ready$clinical_complete[[EVENT_COL]] == 1
       ),
       OS_censored = sum(
-        kao_ready$clinical_complete[
-          [EVENT_COL]
-        ] == 0
+        kao_ready$clinical_complete[[EVENT_COL]] == 0
       ),
       time_column = TIME_COL,
       event_column = EVENT_COL
@@ -1255,9 +1243,7 @@ signature_coverage <- do.call(
     names(signature_sets),
     function(cohort) {
       present <- expression_signature %in%
-        signature_sets[
-          [cohort]
-        ]
+        signature_sets[[cohort]]
 
       data.frame(
         cohort = cohort,
@@ -1279,24 +1265,47 @@ signature_coverage <- do.call(
   )
 )
 
-missing_signature <- do.call(
-  rbind,
-  lapply(
-    names(signature_sets),
-    function(cohort) {
-      data.frame(
-        cohort = cohort,
-        gene = setdiff(
-          expression_signature,
-          signature_sets[
-            [cohort]
-          ]
-        ),
-        stringsAsFactors = FALSE
+missing_signature_list <- lapply(
+  names(signature_sets),
+  function(cohort) {
+    missing_genes <- setdiff(
+      expression_signature,
+      signature_sets[[cohort]]
+    )
+
+    if (length(missing_genes) == 0L) {
+      return(
+        data.frame(
+          cohort = character(0),
+          gene = character(0),
+          stringsAsFactors = FALSE
+        )
       )
     }
-  )
+
+    data.frame(
+      cohort = rep(
+        cohort,
+        length(missing_genes)
+      ),
+      gene = missing_genes,
+      stringsAsFactors = FALSE
+    )
+  }
 )
+
+missing_signature <- do.call(
+  rbind,
+  missing_signature_list
+)
+
+if (is.null(missing_signature)) {
+  missing_signature <- data.frame(
+    cohort = character(0),
+    gene = character(0),
+    stringsAsFactors = FALSE
+  )
+}
 
 write.csv(
   signature_coverage,
